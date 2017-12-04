@@ -21,12 +21,13 @@ setup(
     long_description='Connect to carriots analytics application and perform load/update operations on the datasources using datasource token',
 
     # The project's main homepage.
-    url='https://github.com/altairengineering/CarriotsAnalytics',
+    url='https://github.com/altairengineering/CarriotsAnalytics_py',
 
     # Author details
     author='Aravind S',
     author_email='aravndr@asiapac.altair.com',
-
+    
+    packages = ['CarriotsAnalytics_py'],
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
