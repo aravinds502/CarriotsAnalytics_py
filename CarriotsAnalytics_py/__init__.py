@@ -10,7 +10,7 @@ Get datasource connection
                     obtained from the App
     @param apiKey  - ApiKey for the user/company
 """
-from os import sep
+from os import sep,getcwd,path
 from sys import exc_info,modules
 from requests import post
 from base64 import b64decode
@@ -264,7 +264,9 @@ def  __getDatasourceConnection__(baseUrl,token,apikey,tunnelHost = None):
         
         password = str(password.decode("utf-8"))
         
-        driver_path = modules["CarriotsAnalytics_py"].__file__ + sep +'extdata'+ sep + jdbcDetails['driver']
+        driver_path = path.dirname(modules["CarriotsAnalytics_py"].__file__) + sep +'extdata'+ sep + jdbcDetails['driver']
+        #driver_path = getcwd() + sep +'extdata'+ sep + jdbcDetails['driver']
+        print(driver_path)
         conn = jaydebeapi.connect(jclassname=jdbcDetails['driveClass'],url=jdbcDetails['connString'],driver_args=[connect_data['username'],password],
                                   jars=[driver_path])
         ftable = connect_data['ftable']

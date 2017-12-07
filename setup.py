@@ -4,8 +4,7 @@ https://packaging.python.org/en/latest/distributing.html
 """
 
 # Always prefer setuptools over distutils
-from setuptools import setup
-from os import path
+from setuptools import setup,find_packages
 
 setup(
     name='CarriotsAnalytics_py',
@@ -25,7 +24,7 @@ setup(
     author='Aravind S',
     author_email='aravndr@asiapac.altair.com',
     
-    packages = ['CarriotsAnalytics_py'],
+    packages=find_packages(),
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
@@ -62,7 +61,7 @@ setup(
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
     package_data={
-            'extdata' : ['extdata/*.jar'],
+            'CarriotsAnalytics_py' : ['extdata/*.jar'],
     },
 
 )
