@@ -10,12 +10,13 @@ Get datasource connection
                     obtained from the App
     @param apiKey  - ApiKey for the user/company
 """
-import os
-import sys
-import requests
-import base64
+from os import sep,getcwd
+from sys import exc_info
+from requests import post
+from base64 import b64decode
+from pandas import DataFrame
 import jaydebeapi
-import pandas as pd
+
 def connect_ca(url,token,apikey,tunnelHost = None):
     
     class BAConnectionData:
@@ -132,7 +133,7 @@ def connect_ca(url,token,apikey,tunnelHost = None):
                 print(query)
                 mapd_cursor.execute(query)
             except:
-                e = sys.exc_info()[0]
+                e = exc_info()[0]
                 print(e)
                 
             
@@ -259,11 +260,11 @@ def  __getDatasourceConnection__(baseUrl,token,apikey,tunnelHost = None):
            password += chr(ord(c) - 4)
         
         password = password[::-1]
-        password = base64.b64decode(password)
+        password = b64decode(password)
         
         password = str(password.decode("utf-8"))
         
-        driver_path = os.getcwd() +os.sep +'extdata'+ os.sep + jdbcDetails['driver']
+        driver_path = getcwd() + sep +'extdata'+ sep + jdbcDetails['driver']
         conn = jaydebeapi.connect(jclassname=jdbcDetails['driveClass'],url=jdbcDetails['connString'],driver_args=[connect_data['username'],password],
                                   jars=[driver_path])
         ftable = connect_data['ftable']
@@ -280,7 +281,7 @@ def  __getDatasourceConnection__(baseUrl,token,apikey,tunnelHost = None):
     return data
 
 def cursor_to_df(cursor):
-    df = pd.DataFrame(cursor.fetchall())
+    df = DataFrame(cursor.fetchall())
     df.columns = [d[0] for d in cursor.description]
     return df
 
@@ -342,7 +343,7 @@ def __doHttpCall__(baseUrl,identifier,queryParams,headerParams):
     
     baseUrl = baseUrl + '/datasource.do?action='+ identifier
     
-    res = requests.post(baseUrl,data = queryParams,headers= headerParams)
+    res = post(baseUrl,data = queryParams,headers= headerParams, verify=False)
     
     data = res.json()
     
