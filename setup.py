@@ -7,8 +7,6 @@ https://packaging.python.org/en/latest/distributing.html
 from setuptools import setup
 from os import path
 
-here = path.abspath(path.dirname(__file__))
-
 setup(
     name='CarriotsAnalytics_py',
 
