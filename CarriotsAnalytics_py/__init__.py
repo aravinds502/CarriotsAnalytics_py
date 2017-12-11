@@ -271,7 +271,7 @@ def  __getDatasourceConnection__(baseUrl,token,apikey,tunnelHost = None):
         print(driver_path)
         jvm_path = getDefaultJVMPath()
         print(jvm_path)
-        startJVM(getDefaultJVMPath())
+        startJVM(getDefaultJVMPath(),"-Djava.class.path=%s" % driver_path)
         conn = jaydebeapi.connect(jclassname=jdbcDetails['driveClass'],url=jdbcDetails['connString'],driver_args=[connect_data['username'],password],
                                   jars=[driver_path])
         ftable = connect_data['ftable']
