@@ -10,7 +10,7 @@ Get datasource connection
                     obtained from the App
     @param apiKey  - ApiKey for the user/company
 """
-from os import sep,getcwd,path
+from os import sep,path
 from sys import exc_info,modules
 from requests import post
 from base64 import b64decode
