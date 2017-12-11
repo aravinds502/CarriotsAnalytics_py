@@ -16,6 +16,7 @@ from requests import post
 from base64 import b64decode
 from pandas import DataFrame
 import jaydebeapi
+import jpype
 
 def connect_ca(url,token,apikey,tunnelHost = None):
     
@@ -42,6 +43,7 @@ def connect_ca(url,token,apikey,tunnelHost = None):
     
         def __del__(self):
             self.jdbc.close()
+            jpype.shutdownJVM()
     
     class BAConnection:
         __conn_data__ = None
@@ -267,6 +269,9 @@ def  __getDatasourceConnection__(baseUrl,token,apikey,tunnelHost = None):
         driver_path = path.dirname(modules["CarriotsAnalytics_py"].__file__) + sep +'extdata'+ sep + jdbcDetails['driver']
         #driver_path = getcwd() + sep +'extdata'+ sep + jdbcDetails['driver']
         print(driver_path)
+        jvm_path = jpype.getDefaultJVMPath()
+        print(jvm_path)
+        jpype.startJVM(jpype.getDefaultJVMPath())
         conn = jaydebeapi.connect(jclassname=jdbcDetails['driveClass'],url=jdbcDetails['connString'],driver_args=[connect_data['username'],password],
                                   jars=[driver_path])
         ftable = connect_data['ftable']
